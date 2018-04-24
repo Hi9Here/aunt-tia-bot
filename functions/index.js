@@ -30,7 +30,6 @@ const SELECTION_KEY_DAN = 'dan';
 const SELECTION_KEY_JAIME = 'jaime';
 const SELECTION_KEY_JOSH = 'josh';
 
-
 // Constants for selected item responses
 const SELECTED_ITEM_RESPONSES = {
   [SELECTION_KEY_JOSH]: 'You selected the Josh\'s Story!',
