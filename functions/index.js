@@ -14,6 +14,7 @@ const {
 } = require('actions-on-google');
 const functions = require('firebase-functions');
 const admin = require("firebase-admin");
+
 const serviceAccount = require("./config/firebaseKey.json");
 
 admin.initializeApp({
@@ -45,20 +46,6 @@ const intentSuggestions = [
 
 const app = dialogflow({ debug: true });
 
-// get the data from the database
-db.collection('user').doc('admin').get()
-  .then(doc => {
-    if (!doc.exists) {
-      console.log('No doc');
-    }
-    const storyRef = doc.data()
-    return console.log(`Story ref ${storyRef}`);
-  })
-  .catch(error => {
-    console.log(error);
-  })
-  // end getting data from the database
-
 app.middleware((conv) => {
   conv.hasScreen =
     conv.surface.capabilities.has('actions.capability.SCREEN_OUTPUT');
@@ -69,12 +56,31 @@ app.middleware((conv) => {
 // Parameters for Stories
 app.intent('story', (conv, { Stories }) => {
 
+  if (!Stories.exist) {
+    db.collection('user').doc('admin').collection('cards').doc('FhAT090ueyyh5AzBL2Om').get()
+      .then(doc => {
+        if (!doc.exists) {
+          console.log('No such document!');
+        } else {
+          console.log('Document data:', doc.data());
+        }
+        return
+      })
+      .catch(err => {
+        console.log('Error getting document', err);
+      });
+
+  } else {
+    console.log(`User was blank`);
+  }
+
   if (!conv.hasAudioPlayback) {
     conv.ask('Sorry, this device does not support audio playback.');
     return;
   }
-
   const storyPerson = Stories.toLowerCase();
+  console.log(`Story person is ${storyPerson}`);
+
   const imgURL = `https://storage.googleapis.com/staging.aunt-tia-bot.appspot.com/Images/${storyPerson}`;
   const audioURL = `https://storage.googleapis.com/staging.aunt-tia-bot.appspot.com/Stories/${storyPerson}`;
 
@@ -188,5 +194,9 @@ app.intent('item selected', (conv, params, option) => {
   }
   conv.ask(response);
 });
+
+app.intent('Default Welcome Intent', (conv) => {
+  conv.ask('Hello you all')
+})
 
 exports.aunttiacomponents = functions.https.onRequest(app);
