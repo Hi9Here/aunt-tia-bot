@@ -1,0 +1,38 @@
+[
+  {
+    "id": "f1f57234-5306-4256-8798-cf1e350126f8",
+    "data": [
+      {
+        "text": "browse carousel feature",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520537503
+  },
+  {
+    "id": "93c00264-e10b-43e0-89c1-e306bd4d9b80",
+    "data": [
+      {
+        "text": "browse carousel cards",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520537503
+  },
+  {
+    "id": "40119d29-82e4-4d19-ab22-92cf0d950314",
+    "data": [
+      {
+        "text": "browse carousel",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 1520537503
+  }
+]

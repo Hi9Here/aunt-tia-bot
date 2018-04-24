@@ -1,0 +1,50 @@
+[
+  {
+    "id": "81ed37a7-f0ab-455c-b528-1f5bc7533792",
+    "data": [
+      {
+        "text": "suggestion chips",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "e71fbcb0-103b-4f0a-ae2a-e82d05953e2e",
+    "data": [
+      {
+        "text": "suggestions card",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "8267ca25-6242-4c5d-a564-2c8235f36e2f",
+    "data": [
+      {
+        "text": "suggestions",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "fff1da87-ed44-444a-8d96-9da3666d9475",
+    "data": [
+      {
+        "text": "suggestion",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]
