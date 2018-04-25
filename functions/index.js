@@ -189,7 +189,7 @@ app.intent('item selected', (conv, params, option) => {
 });
 
 app.intent('Default Welcome Intent', (conv) => {
-  conv.ask('V3')
+  conv.ask('V10')
 })
 
 exports.aunttiacomponents = functions.https.onRequest(app);
