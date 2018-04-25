@@ -45,15 +45,6 @@ const intentSuggestions = [
 
 const app = dialogflow({ debug: true });
 
-app.middleware((conv) => {
-  conv.hasScreen =
-    conv.surface.capabilities.has('actions.capability.SCREEN_OUTPUT');
-  conv.hasAudioPlayback =
-    conv.surface.capabilities.has('actions.capability.AUDIO_OUTPUT');
-});
-
-
-
 // Parameters for Stories
 app.intent('story', (conv, { Stories }) => {
 
@@ -63,7 +54,8 @@ app.intent('story', (conv, { Stories }) => {
         if (!doc.exists) {
           console.log('No such document!');
         } else {
-          console.log('Document data:', doc.data());
+          const storyAudio = doc.data().audio;
+          console.log(`this is the audio url ${storyAudio}`);
         }
         return
       })
@@ -75,7 +67,7 @@ app.intent('story', (conv, { Stories }) => {
     console.log(`User was blank`);
   }
 
-  if (!conv.hasAudioPlayback) {
+  if (!conv.surface.capabilities.has('actions.capability.AUDIO_OUTPUT')) {
     conv.ask('Sorry, this device does not support audio playback.');
     return;
   }
@@ -104,7 +96,7 @@ app.intent('story', (conv, { Stories }) => {
 
 // List
 app.intent('list', (conv) => {
-  if (!conv.hasScreen) {
+  if (!conv.surface.capabilities.has('actions.capability.SCREEN_OUTPUT')) {
     conv.ask('Sorry, try this on a screen device or select the ' +
       'phone surface in the simulator.');
     return;
@@ -127,7 +119,7 @@ app.intent('list', (conv) => {
         title: 'Josh\'s Story',
         description: 'This is a description of Josh\'s story.',
         image: new Image({
-          url: IMG_URL_JOSH,
+          url: '',
           alt: 'Josh Image',
         }),
       },
@@ -140,7 +132,7 @@ app.intent('list', (conv) => {
         title: 'Dan\'s Story',
         description: 'This is a descriptioin of Dan\'s Story',
         image: new Image({
-          url: IMG_URL_DAN,
+          url: '',
           alt: 'Dan Image',
         }),
       },
@@ -154,7 +146,7 @@ app.intent('list', (conv) => {
         title: 'Jaime\'s Story',
         description: 'This is a descriptioin of Jamie\'s Story',
         image: new Image({
-          url: IMG_URL_JAMIE,
+          url: '',
           alt: 'Jamie Image',
         }),
       },
@@ -166,7 +158,7 @@ app.intent('list', (conv) => {
         ],
         description: 'This is a descriptioin of Piran\'s Story',
         image: new Image({
-          url: IMG_URL_PIRAN,
+          url: '',
           alt: 'Piran Image',
         }),
       },
@@ -197,7 +189,7 @@ app.intent('item selected', (conv, params, option) => {
 });
 
 app.intent('Default Welcome Intent', (conv) => {
-  conv.ask('Hello you all')
+  conv.ask('V3')
 })
 
 exports.aunttiacomponents = functions.https.onRequest(app);
