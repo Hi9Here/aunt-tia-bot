@@ -52,6 +52,8 @@ app.middleware((conv) => {
     conv.surface.capabilities.has('actions.capability.AUDIO_OUTPUT');
 });
 
+
+
 // Parameters for Stories
 app.intent('story', (conv, { Stories }) => {
 
