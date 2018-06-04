@@ -2,6 +2,7 @@
 
 const {
   dialogflow,
+  BasicCard,
   BrowseCarousel,
   BrowseCarouselItem,
   Button,
@@ -25,22 +26,51 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Constants for list and carousel selection
-const SELECTION_KEY_PIRAN = 'piran';
 const SELECTION_KEY_DAN = 'dan';
-const SELECTION_KEY_JAIME = 'jaime';
+const SELECTION_KEY_JAMIE = 'jamie';
+const SELECTION_KEY_IMOGEN = 'imogen';
+const SELECTION_KEY_KELLEE = 'kellee';
+const SELECTION_KEY_KELLEECOCAINE = 'kellee cocaine';
 const SELECTION_KEY_JOSH = 'josh';
+const SELECTION_KEY_ISAAC = 'isaac';
+const SELECTION_KEY_DANDRUNK = 'dan drunk';
+const SELECTION_KEY_HENRY = 'henry';
+const SELECTION_KEY_ISAACCLUB = 'isaac club';
+const SELECTION_KEY_CHLOE = 'chloe';
+const SELECTION_KEY_CHLOEBLACKOUT = 'chloe blackout';
+const SELECTION_KEY_PIRAN = 'piran';
+const SELECTION_KEY_LAURA = 'laura';
+const SELECTION_KEY_CHLOEDRINKING = 'chloe ';
+const SELECTION_KEY_HENRYSCHOOL = 'henry school';
 
 // Constants for selected item responses
 const SELECTED_ITEM_RESPONSES = {
-  [SELECTION_KEY_JOSH]: 'You selected the Josh\'s Story!',
   [SELECTION_KEY_DAN]: 'You selected the Dan\'s Story!',
-  [SELECTION_KEY_JAIME]: 'You selected the Jamie\'s Story!',
-  [SELECTION_KEY_PIRAN]: 'You selected the Piran\'s Story!'
+  [SELECTION_KEY_JAMIE]: 'You selected the Jamie\'s Story!',
+  [SELECTION_KEY_IMOGEN]: 'You selected the Imogen\'s Story!',
+  [SELECTION_KEY_KELLEE]: 'You selected the Kellee\'s Story!',
+  [SELECTION_KEY_KELLEECOCAINE]: 'You selected the Kellee\'s Cocaine Story!',
+  [SELECTION_KEY_JOSH]: 'You selected the Josh\'s Story!',
+  [SELECTION_KEY_ISAAC]: 'You selected the Isaac\'s Story!',
+  [SELECTION_KEY_DANDRUNK]: 'You selected the Dan Drunk\'s Story!',
+  [SELECTION_KEY_HENRY]: 'You selected the Henry\'s Story!',
+  [SELECTION_KEY_ISAACCLUB]: 'You selected the Isaac\'s club Story!',
+  [SELECTION_KEY_CHLOE]: 'You selected the Chloe\'s Story!',
+  [SELECTION_KEY_CHLOEBLACKOUT]: 'You selected the Chloe\'s Blackout Story!',
+  [SELECTION_KEY_PIRAN]: 'You selected the Piran\'s Story!',
+  [SELECTION_KEY_LAURA]: 'You selected the Laura\'s Story!',
+  [SELECTION_KEY_CHLOEDRINKING]: 'You selected the Chloe\'s Story!',
+  [SELECTION_KEY_HENRYSCHOOL]: 'You selected the Henry\'s School Story!'
 };
 
+const intentListSuggestions = [
+  'Contact Numbers',
+  'About Aunti Tia'
+];
+
 const intentSuggestions = [
-  'List',
-  'Other'
+  'Contact Numbers',
+  'About Aunti Tia'
 ];
 
 const app = dialogflow({ debug: true });
@@ -48,24 +78,24 @@ const app = dialogflow({ debug: true });
 // Parameters for Stories
 app.intent('story', (conv, { Stories }) => {
 
-  if (!Stories.exist) {
-    db.collection('user').doc('admin').collection('cards').doc('FhAT090ueyyh5AzBL2Om').get()
-      .then(doc => {
-        if (!doc.exists) {
-          console.log('No such document!');
-        } else {
-          const storyAudio = doc.data().audio;
-          console.log(`this is the audio url ${storyAudio}`);
-        }
-        return
-      })
-      .catch(err => {
-        console.log('Error getting document', err);
-      });
+  // if (!Stories.exist) {
+  //   db.collection('user').doc('admin').collection('cards').doc('FhAT090ueyyh5AzBL2Om').get()
+  //     .then(doc => {
+  //       if (!doc.exists) {
+  //         console.log('No such document!');
+  //       } else {
+  //         const storyAudio = doc.data().audio;
+  //         console.log(`this is the audio url ${storyAudio}`);
+  //       }
+  //       return
+  //     })
+  //     .catch(err => {
+  //       console.log('Error getting document', err);
+  //     });
 
-  } else {
-    console.log(`User was blank`);
-  }
+  // } else {
+  //   console.log(`User was blank`);
+  // }
 
   if (!conv.surface.capabilities.has('actions.capability.AUDIO_OUTPUT')) {
     conv.ask('Sorry, this device does not support audio playback.');
@@ -109,59 +139,210 @@ app.intent('list', (conv) => {
   conv.ask(new List({
     title: 'List Title',
     items: {
-      // Add the first item to the list
-      [SELECTION_KEY_JOSH]: {
-        synonyms: [
-          'josh story',
-          'story of josh',
-          'Josh talking',
-        ],
-        title: 'Josh\'s Story',
-        description: 'This is a description of Josh\'s story.',
-        image: new Image({
-          url: '',
-          alt: 'Josh Image',
-        }),
-      },
-      // Add the second item to the list
       [SELECTION_KEY_DAN]: {
         synonyms: [
           'dan story',
           'story of dan',
         ],
-        title: 'Dan\'s Story',
-        description: 'This is a descriptioin of Dan\'s Story',
+        title: "Dan\'s Painkiller Story",
+        description: "When Dan was Addicted to Painkillers",
         image: new Image({
           url: '',
           alt: 'Dan Image',
         }),
       },
-      // Add the third item to the list
-      [SELECTION_KEY_JAIME]: {
+      [SELECTION_KEY_JAMIE]: {
         synonyms: [
-          'jaime story',
-          'story jamie',
-          'jamie talking',
+          'jamie story',
+          'story of jamie',
         ],
-        title: 'Jaime\'s Story',
-        description: 'This is a descriptioin of Jamie\'s Story',
+        title: "Jamie Acide Story",
+        description: "When Jamie took Acid",
         image: new Image({
           url: '',
           alt: 'Jamie Image',
         }),
       },
-      // Add the last item to the list
-      [SELECTION_KEY_PIRAN]: {
-        title: 'Piran\'s Story',
+      [SELECTION_KEY_IMOGEN]: {
         synonyms: [
-          'Piran Story',
+          'imogen story',
+          'story of imogen',
         ],
-        description: 'This is a descriptioin of Piran\'s Story',
+        title: 'Imogen\'s Story',
+        description: 'When Imogen drank wine and felt suicidal',
+        image: new Image({
+          url: '',
+          alt: 'Imogen Image',
+        }),
+      },
+      [SELECTION_KEY_KELLEE]: {
+        synonyms: [
+          'kellee story',
+          'kellee talking',
+        ],
+        title: "Kellee\'s MDMA Story",
+        description: 'When Kellee took MDMA',
+        image: new Image({
+          url: '',
+          alt: 'Kellee Image',
+        }),
+      },
+      [SELECTION_KEY_KELLEECOCAINE]: {
+        synonyms: [
+          'kellee cocaine story',
+          'kellee talking about cocaine',
+        ],
+        title: "Kellee\'s Cocaine Story",
+        description: 'When Kellee took Cocaine',
+        image: new Image({
+          url: '',
+          alt: 'Kellee Image',
+        }),
+      },
+      [SELECTION_KEY_JOSH]: {
+        synonyms: [
+          'josh mdma story',
+          'mdma talking about mdma',
+        ],
+        title: "Josh\'s MDMA Story",
+        description: 'When Josh took too much MDMA',
+        image: new Image({
+          url: '',
+          alt: 'Josh Image',
+        }),
+      },
+      [SELECTION_KEY_JOSH]: {
+        synonyms: [
+          'josh mdma story',
+          'josh talking about mdma',
+        ],
+        title: "Josh\'s MDMA Story",
+        description: 'When Josh took too much MDMA',
+        image: new Image({
+          url: '',
+          alt: 'Josh Image',
+        }),
+      },
+      [SELECTION_KEY_ISAAC]: {
+        synonyms: [
+          'isaac story',
+          'isaac talking',
+        ],
+        title: "Isaac\'s Fight Story",
+        description: 'When Isaac got so drunk he punched his friend',
+        image: new Image({
+          url: '',
+          alt: 'Isaac Image',
+        }),
+      },
+      [SELECTION_KEY_DAN]: {
+        synonyms: [
+          'dan story',
+          'dan talking',
+        ],
+        title: "Dan\'s Car Accident",
+        description: 'When Dan got in a drunken car accident',
+        image: new Image({
+          url: '',
+          alt: 'Dan Image',
+        }),
+      },
+      [SELECTION_KEY_HENRY]: {
+        synonyms: [
+          'henry story',
+          'henry talking',
+        ],
+        title: "Henry Got Drunk First Time",
+        description: 'When Henry got drunk for the first time',
+        image: new Image({
+          url: '',
+          alt: 'Henry Image',
+        }),
+      },
+      [SELECTION_KEY_ISAACCLUB]: {
+        synonyms: [
+          'isaac story',
+          'isaac talking',
+        ],
+        title: "Isaac got too drunk",
+        description: 'When Isaac got too drunk at the club',
+        image: new Image({
+          url: '',
+          alt: 'Isaac Image',
+        }),
+      },
+      [SELECTION_KEY_CHLOE]: {
+        synonyms: [
+          'chloe story',
+          'chloe talking',
+        ],
+        title: "Chloe Birthday Story",
+        description: 'When Chloe blacked out at her friend\'s birthday',
+        image: new Image({
+          url: '',
+          alt: 'Chloe Image',
+        }),
+      },
+      [SELECTION_KEY_CHLOEBLACKOUT]: {
+        synonyms: [
+          'chloe blackout story',
+          'chloe talking about blackout',
+        ],
+        title: "Chloe drank too much Bacardi",
+        description: 'When Chloe drank too much Bacardi',
+        image: new Image({
+          url: '',
+          alt: 'Chloe Image',
+        }),
+      },
+      [SELECTION_KEY_PIRAN]: {
+        synonyms: [
+          'piran story',
+          'piran talking',
+        ],
+        title: "Piran\'s Friends too high",
+        description: 'When all of Piran\'s friends were high',
         image: new Image({
           url: '',
           alt: 'Piran Image',
         }),
       },
+      [SELECTION_KEY_LAURA]: {
+        synonyms: [
+          'laura story',
+          'laura talking',
+        ],
+        title: "Laura\'s first time drunk",
+        description: 'When Laura got drunk for the first time',
+        image: new Image({
+          url: '',
+          alt: 'laura Image',
+        }),
+      },
+      [SELECTION_KEY_CHLOEDRINKING]: {
+        synonyms: [
+          'chloe drinking story',
+          'chloe talking about drinking',
+        ],
+        title: "Chloe drink Sambuca",
+        description: 'When Chloe drank too much black Sambuca',
+        image: new Image({
+          url: '',
+          alt: 'chloe Image',
+        }),
+      },
+      [SELECTION_KEY_HENRYSCHOOL]: {
+        synonyms: [
+          'henry school story',
+          'henry school talking',
+        ],
+        title: "Henry\'s Realisation",
+        description: 'When Henry realised his friends were damaged',
+        image: new Image({
+          url: '',
+          alt: 'henry Image',
+        }),
+      }
     },
   }));
 });
@@ -189,7 +370,7 @@ app.intent('item selected', (conv, params, option) => {
 });
 
 app.intent('Default Welcome Intent', (conv) => {
-  conv.ask('V10')
+  conv.ask('V12')
 })
 
 exports.aunttiacomponents = functions.https.onRequest(app);
